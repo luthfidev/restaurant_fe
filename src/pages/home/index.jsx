@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,9 +8,11 @@ import {
   Image,
   Item,
   Label,
+  Button,
 } from "semantic-ui-react";
 import useStates from "../../states";
 import Cookies from "universal-cookie";
+import AddModal from "../../components/modal/addOutlet";
 
 const paragraph = (
   <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
@@ -19,12 +20,12 @@ const paragraph = (
 
 const Dashboard = () => {
   const cookies = new Cookies();
-  const history = useNavigate()
+  const history = useNavigate();
   const [state, actions] = useStates();
   useEffect(() => {
     actions.setStateObject({ isLoading: true });
     actions
-      .get(`/admin`)
+      .get(`/home`)
       .then((result) => {
         let { data } = result.data;
         actions.setStateObject({ data });
@@ -39,12 +40,16 @@ const Dashboard = () => {
     history("/");
   };
 
+  const openModalAdd = () => {
+    actions.setStateObject({ openModal: true });
+  };
+
   return (
     <div>
       <Menu fixed="top" inverted>
         <Container>
           <Menu.Item as="a" header>
-            Dashboard Admin
+            Dashboard User
           </Menu.Item>
           <Dropdown item simple text="Profile">
             <Dropdown.Menu>
@@ -53,10 +58,11 @@ const Dashboard = () => {
           </Dropdown>
         </Container>
       </Menu>
-
       <Container text style={{ marginTop: "7em" }}>
+        <Button primary onClick={openModalAdd}>
+          Add Outlet
+        </Button>
         <Header as="h1">All Outlets</Header>
-
         <Item.Group divided>
           {state.data
             ? state.data.map((item, index) => {
@@ -76,8 +82,9 @@ const Dashboard = () => {
                   </>
                 );
               })
-            : "No Data"}
+            : "Loading..."}
         </Item.Group>
+        <AddModal />
       </Container>
     </div>
   );
