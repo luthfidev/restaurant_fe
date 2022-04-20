@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import useStates from "../../states";
@@ -31,8 +31,7 @@ const RegisterForm = () => {
     };
     actions
       .register("/auth/register", dataSend)
-      .then((result) => {
-        let { data } = result;
+      .then(() => {
         history("/");
       })
       .catch((error) => {
