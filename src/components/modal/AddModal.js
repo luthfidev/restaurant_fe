@@ -62,13 +62,6 @@ function AddModal() {
         >
           Close
         </Button>
-        {/* <Button
-          content="Yep, that's me"
-          labelPosition="right"
-          icon="checkmark"
-          onClick={() => actions.setStateObject({ openModal: false })}
-          positive
-        /> */}
       </Modal.Actions>
     </Modal>
   );

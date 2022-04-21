@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react";
 import useStates from "../../states";
 import Cookies from "universal-cookie";
-import AddModal from "../../components/modal/addOutlet";
+import AddModal from "../../components/modal/AddModal";
 
 const paragraph = (
   <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />

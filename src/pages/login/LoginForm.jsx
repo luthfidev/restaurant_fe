@@ -55,8 +55,7 @@ const LoginForm = () => {
                 priviledges,
                 user_id,
                 user_name,
-                users_role_id,
-                users_role_name,
+                access_level_id,
               },
             },
           } = result.data;
@@ -68,8 +67,7 @@ const LoginForm = () => {
             priviledges,
             user_id,
             user_name,
-            users_role_id,
-            users_role_name,
+            access_level_id,
             isLoading: true,
             isLoadingPage: true,
           });
@@ -80,36 +78,51 @@ const LoginForm = () => {
           if (!isAdmin) {
             return history("/home");
           }
+        })
+        .catch((error) => {
+          
+          
         });
     }
   };
 
   return (
-    <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
-          Log-in to your account
-        </Header>
-        <Form size="large" onSubmit={submit}>
-          <Segment stacked>
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="username"
-              name="username"
-              onChange={(e) => getValueName(e.target.value)}
-            />
-            <Button color="teal" fluid size="large" loading={state.isLoading}>
-              Login
-            </Button>
-          </Segment>
-        </Form>
-        <Message>
-          New to us? <Link to="/register">Register</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
+    <>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" color="teal" textAlign="center">
+            Log-in to your account
+          </Header>
+          <Form size="large" onSubmit={submit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="username"
+                name="username"
+                onChange={(e) => getValueName(e.target.value)}
+              />
+              <Button color="teal" fluid size="large" loading={state.isLoading}>
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Message warning>
+            <Message.Header>Note.</Message.Header>
+            <p>username : user (user not admin)</p>
+            <p>username : admin (admin)</p>
+          </Message>
+          <Message>
+            New to us? <Link to="/register">Register</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </>
   );
 };
 

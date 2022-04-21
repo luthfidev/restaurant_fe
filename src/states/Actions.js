@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
+import { toast } from "react-semantic-toasts";
 
 const cookies = new Cookies();
 
@@ -11,13 +12,6 @@ const actions = {
   setState: (store, name, value) => {
     store.setState({ [name]: value });
   },
-  snackBar: (store, message, severity) => {
-    store.setState({
-      openSnackBar: true,
-      snackbarMessage: message,
-      snackbarSeverity: severity,
-    });
-  },
   login: async (store, data) => {
     try {
       let fetch = await axios.post(
@@ -27,7 +21,15 @@ const actions = {
       );
       return fetch;
     } catch (error) {
-      store.setState({});
+      toast({
+        type: "warning",
+        icon: "exclamation",
+        title: "Warning",
+        description:
+          JSON.stringify(error.response.data.message),
+        animation: "bounce",
+        time: 5000,
+      });
     }
   },
   register: async (store, url, data) => {
@@ -38,38 +40,16 @@ const actions = {
       );
       return fetch;
     } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
+      toast({
+        type: "warning",
+        icon: "exclamation",
+        title: "Warning",
+        description:
+          JSON.stringify(error.response.data.message),
+        animation: "bounce",
+        time: 5000,
       });
       throw new Error(error);
-    }
-  },
-  getData: async (store, tableConfig) => {
-    try {
-      const { page, limit, columns, url } = tableConfig;
-      let urlFix = `${process.env.REACT_APP_API_URL}${url}`;
-      let params = {
-        page: page,
-        limit: limit,
-      };
-      for (let i = 0; i < columns.length; i++) {
-        if (columns[i].filter) {
-          params[columns[i].filter.params] = columns[i].filter.value;
-        }
-      }
-      let fetch = axios.get(urlFix, {
-        params: params,
-        headers: { Authorization: `Bearer ${cookies.get("jwt")}` },
-      });
-      return fetch;
-    } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
-      });
     }
   },
   get: async (store, url, params) => {
@@ -81,10 +61,14 @@ const actions = {
       });
       return fetch;
     } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
+      toast({
+        type: "warning",
+        icon: "exclamation",
+        title: "Warning",
+        description:
+          JSON.stringify(error.response.data.message),
+        animation: "bounce",
+        time: 5000,
       });
     }
   },
@@ -99,99 +83,14 @@ const actions = {
       );
       return fetch;
     } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
-      });
-      throw new Error(error);
-    }
-  },
-  postForm: async (store, url, data) => {
-    try {
-      let dataSend = Object.keys(data);
-      const form = new FormData();
-      for (let i = 0; i < dataSend.length; i++) {
-        form.append(dataSend[i], data[dataSend[i]]);
-      }
-      let fetch = await axios.post(
-        `${process.env.REACT_APP_API_URL}${url}`,
-        form,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-            Authorization: `Bearer ${cookies.get("jwt")}`,
-          },
-        }
-      );
-      return fetch;
-    } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
-      });
-      throw new Error(error);
-    }
-  },
-  edit: async (store, url, data) => {
-    try {
-      let fetch = await axios.patch(
-        `${process.env.REACT_APP_API_URL}${url}`,
-        data,
-        {
-          headers: { Authorization: `Bearer ${cookies.get("jwt")}` },
-        }
-      );
-      return fetch;
-    } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
-      });
-      throw new Error(error);
-    }
-  },
-  editForm: async (store, url, data) => {
-    try {
-      let dataSend = Object.keys(data);
-      const form = new FormData();
-      for (let i = 0; i < dataSend.length; i++) {
-        form.append(dataSend[i], data[dataSend[i]]);
-      }
-      let fetch = await axios.patch(
-        `${process.env.REACT_APP_API_URL}${url}`,
-        form,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-            Authorization: `Bearer ${cookies.get("jwt")}`,
-          },
-        }
-      );
-      return fetch;
-    } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
-      });
-      throw new Error(error);
-    }
-  },
-  delete: async (store, url, params) => {
-    try {
-      let fetch = await axios.delete(`${process.env.REACT_APP_API_URL}${url}`, {
-        params: params,
-        headers: { Authorization: `Bearer ${cookies.get("jwt")}` },
-      });
-      return fetch;
-    } catch (error) {
-      store.setState({
-        openSnackBar: true,
-        snackbarMessage: error.response.data.message,
-        snackbarSeverity: "error",
+      toast({
+        type: "warning",
+        icon: "exclamation",
+        title: "Warning",
+        description:
+          JSON.stringify(error.response.data.message),
+        animation: "bounce",
+        time: 5000,
       });
       throw new Error(error);
     }

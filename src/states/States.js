@@ -2,11 +2,11 @@
 export default {
     //FRAMEWORK
     openModal: false,
-    openDrawer: true,
     isLoadingPage: false,
     isLoading: false,
     anchorEl : null,
     //AUTH
+    access_level_id: null,
     login: false,
     token: null,
     isAdmin: null,
