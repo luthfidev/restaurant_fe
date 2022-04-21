@@ -25,12 +25,14 @@ const actions = {
         type: "warning",
         icon: "exclamation",
         title: "Warning",
-        description:
-          JSON.stringify(error.response.data.message),
+        description: JSON.stringify(error.response.data.message),
         animation: "bounce",
         time: 5000,
       });
     }
+    store.setState({
+      isLoading: false,
+    });
   },
   register: async (store, url, data) => {
     try {
@@ -44,10 +46,12 @@ const actions = {
         type: "warning",
         icon: "exclamation",
         title: "Warning",
-        description:
-          JSON.stringify(error.response.data.message),
+        description: JSON.stringify(error.response.data.message),
         animation: "bounce",
         time: 5000,
+      });
+      store.setState({
+        isLoading: false,
       });
       throw new Error(error);
     }
@@ -65,8 +69,7 @@ const actions = {
         type: "warning",
         icon: "exclamation",
         title: "Warning",
-        description:
-          JSON.stringify(error.response.data.message),
+        description: JSON.stringify(error.response.data.message),
         animation: "bounce",
         time: 5000,
       });
@@ -87,10 +90,12 @@ const actions = {
         type: "warning",
         icon: "exclamation",
         title: "Warning",
-        description:
-          JSON.stringify(error.response.data.message),
+        description: JSON.stringify(error.response.data.message),
         animation: "bounce",
         time: 5000,
+      });
+      store.setState({
+        isLoading: false,
       });
       throw new Error(error);
     }
