@@ -29,6 +29,9 @@ const RegisterForm = () => {
       username: state.username,
       access_level_id: state.access_level_id,
     };
+    actions.setStateObject({
+      isLoading: true,
+    });
     actions
       .register("/auth/register", dataSend)
       .then(() => {

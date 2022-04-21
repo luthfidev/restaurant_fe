@@ -41,6 +41,9 @@ const LoginForm = () => {
     if (state.email === "" || state.password === "") {
       return false;
     } else {
+      actions.setStateObject({
+        isLoading: true,
+      });
       actions
         .login({
           username: state.username,
@@ -68,7 +71,6 @@ const LoginForm = () => {
             user_id,
             user_name,
             access_level_id,
-            isLoading: true,
             isLoadingPage: true,
           });
           cookies.set("jwt", token, { path: "/" }, { expires: expireDate });
@@ -78,11 +80,8 @@ const LoginForm = () => {
           if (!isAdmin) {
             return history("/home");
           }
+          
         })
-        .catch((error) => {
-          
-          
-        });
     }
   };
 

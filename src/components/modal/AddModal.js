@@ -13,6 +13,9 @@ function AddModal() {
     let dataSend = {
       name: state.name,
     };
+    actions.setStateObject({
+      isLoading: true,
+    });
     actions
       .post("/outlets/add", dataSend)
       .then((result) => {
@@ -20,7 +23,7 @@ function AddModal() {
           .get("/home")
           .then((result) => {
             let { data } = result.data;
-            actions.setStateObject({ data });
+            actions.setStateObject({ data, isLoading: false });
           })
           .catch((error) => {
             actions.setState("isLoading", false);
@@ -51,7 +54,9 @@ function AddModal() {
               name="name"
               onChange={(e) => getValueName(e.target.value)}
             />
-            <Button type="submit">Submit</Button>
+            <Button loading={state.isLoading} type="submit">
+              Submit
+            </Button>
           </Form>
         </Modal.Description>
       </Modal.Content>
