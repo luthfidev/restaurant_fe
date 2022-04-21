@@ -12,6 +12,7 @@
 * use-global-hook
 * semantic-ui-css
 * semantic-ui-react
+* react-semantic-toasts
   
 ***
 
